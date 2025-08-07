@@ -1,0 +1,21 @@
+mongo:
+  collection: "transactional_data"
+  database: fintech
+  host: localhost
+  port: 27017
+
+postgresql:
+  database: fintech
+  host: localhost
+  user: postgres
+  password: rose
+  port: 5432
+  table: customers
+
+warehouse:
+  database: fintech
+  host: localhost
+  user: postgres
+  password: rose
+  port: 5432
+  table: combined_financials
