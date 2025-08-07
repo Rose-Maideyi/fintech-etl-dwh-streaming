@@ -1,8 +1,8 @@
-# fintech-etl-dwh-streaming
+ fintech-etl-dwh-streaming
 
 
 
-\## 🧩 Overview
+ 🧩 Overview
 
 
 
@@ -10,87 +10,11 @@ This project showcases a complete data engineering solution for financial servic
 
 
 
-\* \*\*ETL Pipelines\*\* from MongoDB and PostgreSQL to a PostgreSQL Data Warehouse (Star Schema)
+ETL Pipelines from MongoDB and PostgreSQL to a PostgreSQL Data Warehouse (Star Schema
 
-\* \*\*Data Warehouse Design\*\* optimized for reporting and analytics
+Data Warehouse Design optimized for reporting and analytics
 
-\* \*\*Real-Time Data Streaming\*\* using Python, Apache Kafka, Spark, and InfluxDB with Grafana
-
-
-
----
-
-
-
-\## 🏗️ Architecture Summary
-
-
-
-\### 1. \*\*ETL Pipeline (Batch)\*\*
-
-
-
-\* \*\*Sources\*\*:
-
-
-
-&nbsp; \* MongoDB: Transactional data
-
-&nbsp; \* PostgreSQL: Customer data
-
-
-
-\* \*\*Destination\*\*:
-
-
-
-&nbsp; \* PostgreSQL Data Warehouse
-
-
-
-\* \*\*Key Features\*\*:
-
-
-
-&nbsp; \* Data transformation and cleaning
-
-&nbsp; \* Star schema alignment
-
-&nbsp; \* YAML-based configuration
-
-&nbsp; \* Scheduling via APScheduler
-
-
-
-\### 2. \*\*Data Warehouse\*\*
-
-
-
-\* \*\*Schema\*\*: Star schema
-
-\* \*\*Fact Tables\*\*: `fact\_transactions`, `fact\_account\_balances`
-
-\* \*\*Dimension Tables\*\*: `dim\_customer`, `dim\_account`, `dim\_date`, `dim\_branch`, `dim\_transaction\_type`
-
-\* \*\*Security\*\*: Role-based access
-
-\* \*\*Quality Checks\*\*: Negative balances, missing keys, orphan records
-
-
-
-\### 3. \*\*Real-Time Streaming Pipeline\*\*
-
-
-
-\* \*\*Tools\*\*: Python, Flume, Kafka, Spark, InfluxDB, Grafana
-
-\* \*\*Features\*\*:
-
-
-
-&nbsp; \* Live financial transaction simulation
-
-&nbsp; \* Real-time analytics with InfluxDB + Grafana dashboards
+Real-Time Data Streaming using Python, Apache Kafka, Spark, and InfluxDB with Grafana
 
 
 
@@ -98,15 +22,90 @@ This project showcases a complete data engineering solution for financial servic
 
 
 
-\## ⚙️ Components \& Setup
+ 🏗️ Architecture Summary
+
+
+ 1. ETL Pipeline (Batch)
 
 
 
-\### ✅ ETL Pipeline
+Sources:
 
 
 
-\*\*Configuration\*\*
+&nbsp;  MongoDB: Transactional data
+
+&nbsp; PostgreSQL: Customer data
+
+
+
+Destination:
+
+
+
+&nbsp; PostgreSQL Data Warehouse
+
+
+
+Key Features:
+
+
+
+&nbsp;  Data transformation and cleaning
+
+&nbsp;  Star schema alignment
+
+&nbsp;  YAML-based configuration
+
+&nbsp;  Scheduling via APScheduler
+
+
+
+2. Data Warehouse
+
+
+
+Schema: Star schema
+
+Fact Tables: `fact\_transactions`, `fact\_account\_balances`
+
+Dimension Tables: `dim\_customer`, `dim\_account`, `dim\_date`, `dim\_branch`, `dim\_transaction\_type`
+
+Security: Role-based access
+
+Quality Checks: Negative balances, missing keys, orphan records
+
+
+
+ 3. Real-Time Streaming Pipeline
+
+
+
+Tools: Python, Flume, Kafka, Spark, InfluxDB, Grafana
+
+Features:
+
+
+
+&nbsp;  Live financial transaction simulation
+
+&nbsp;  Real-time analytics with InfluxDB + Grafana dashboards
+
+
+
+---
+
+
+
+ ⚙️ Components \& Setup
+
+
+
+ ✅ ETL Pipeline
+
+
+
+Configuration
 
 Create a `config.yaml`:
 
@@ -156,7 +155,7 @@ warehouse:
 
 
 
-\*\*Run ETL Once\*\*:
+Run ETL Once:
 
 
 
@@ -180,29 +179,25 @@ run\_scheduled\_etl(minutes=60)
 
 
 
----
+
+
+✅ Data Warehouse Setup
 
 
 
-\### ✅ Data Warehouse Setup
+Create Database:
 
-
-
-\*\*Create Database\*\*:
-
-
-
-```sql
+sql
 
 CREATE DATABASE financial\_dw;
 
 \\c financial\_dw;
 
-```
 
 
 
-\*\*Run SQL Schema\*\*:
+
+Run SQL Schema:
 
 
 
@@ -214,7 +209,7 @@ psql -U your\_user -f financial\_dw\_star\_schema.sql
 
 
 
-\*\*Sample Query: Customer Portfolio\*\*
+Sample Query: Customer Portfolio
 
 
 
@@ -252,17 +247,17 @@ LIMIT 100;
 
 
 
-\### ✅ Real-Time Streaming Pipeline
+✅ Real-Time Streaming Pipeline
 
 
 
-\*\*Data Generator Script (Python)\*\*
+Data Generator Script (Python)
 
 
 
 ```python
 
-\# generator.py
+ generator.py
 
 import json, time, random, os
 
@@ -308,7 +303,7 @@ while True:
 
 
 
-\*\*Kafka Setup\*\*:
+Kafka Setup:
 
 
 
@@ -320,13 +315,13 @@ kafka-topics.sh --create --topic finance --bootstrap-server localhost:9092
 
 
 
-\*\*Spark Consumer Script\*\*:
+Spark Consumer Script\*\*:
 
 
 
 ```python
 
-\# spark\_consumer.py
+spark\_consumer.py
 
 from kafka import KafkaConsumer
 
@@ -364,39 +359,21 @@ for msg in consumer:
 
 
 
-\*\*Grafana Setup\*\*:
+Grafana Setup:
 
 
 
-\* Connect InfluxDB as a data source
+ Connect InfluxDB as a data source
 
-\* Visualize metrics like:
-
-
-
-&nbsp; \* Total transaction volume
-
-&nbsp; \* Status breakdown
-
-&nbsp; \* Age distribution
+ Visualize metrics like:
 
 
 
----
+&nbsp; Total transaction volume
 
+&nbsp;  Status breakdown
 
-
-\## 🔐 Security \& Governance
-
-
-
-\* Roles: `finance\_analyst`, `finance\_manager`, `finance\_admin`
-
-\* Access control via PostgreSQL GRANTs
-
-\* Masked columns (e.g., SSNs)
-
-\* Data validation: Nulls, negative values, key references
+&nbsp;  Age distribution
 
 
 
@@ -404,19 +381,35 @@ for msg in consumer:
 
 
 
-\## 📦 Requirements
+🔐 Security \& Governance
 
 
 
-\* Python 3.7+
+ Roles: `finance\_analyst`, `finance\_manager`, `finance\_admin`
 
-\* PostgreSQL 12+
+Access control via PostgreSQL GRANTs
 
-\* MongoDB
+ Masked columns (e.g., SSNs)
+ Data validation: Nulls, negative values, key references
 
-\* Kafka, Spark, Flume (for real-time)
 
-\* Python packages:
+
+---
+
+
+
+ 📦 Requirements
+
+
+
+Python 3.7+
+
+ PostgreSQL 12+
+
+ MongoDB
+
+ Kafka, Spark, Flume (for real-time)
+ Python packages:
 
 
 
@@ -424,25 +417,23 @@ for msg in consumer:
 
 &nbsp; pip install pymongo psycopg2 sqlalchemy pandas PyYAML APScheduler influxdb-client kafka-python
 
-&nbsp; ```
+&nbsp; 
 
 
 
----
 
 
 
-\## 🛠️ Future Enhancements
+🛠️ Future Enhancements
 
 
 
-\* Introduce incremental ETL loading
+Introduce incremental ETL loading
 
-\* Integrate a CI/CD pipeline for deployments
+ Integrate a CI/CD pipeline for deployments
 
-\* Add support for S3 or BigQuery as alternate warehouses
-
-\* Extend real-time alerts via Grafana or Prometheus
+ Add support for S3 or BigQuery as alternate warehouses
+ Extend real-time alerts via Grafana or Prometheus
 
 
 
